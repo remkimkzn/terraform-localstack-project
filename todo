@@ -14,6 +14,16 @@ awslocal s3 ls - все bucket
 --table-name terraform-localstack-table
 
 Попробовать SNS + SQS, чтобы добавить события и очереди.
+S3 публикует событие
+SNS распространяет сообщение
+SQS хранит его для обработки
+awslocal sqs list-queues
+awslocal sns list-topics
+
+Следующий шаг — связать SNS и SQS через подписку. 
+Тогда сообщения, отправленные в SNS, будут автоматически 
+попадать в очередь SQS.
+
 Применить локальные переменные, outputs, modules, 
 чтобы тренироваться 
 с архитектурой Terraform.
