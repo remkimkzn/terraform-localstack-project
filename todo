@@ -1,8 +1,20 @@
+s3 - сервис хранения объектов в aws
+bucket - как папка в облаке
+terraform state show module.storage.aws_s3_bucket.this - посмотреть ресурсов
+terraform destroy - удалим bucket
+awslocal s3 ls - все bucket 
 Теперь, когда S3 работает, можно сделать следующие шаги 
 для проекта middle-level:
+
 Добавить DynamoDB таблицу и связать с S3, чтобы понять
  зависимости ресурсов.
+ awslocal dynamodb list-tables - список таблиц
+ Проверить описание таблицы
+ awslocal dynamodb describe-table \
+--table-name terraform-localstack-table
+
 Попробовать SNS + SQS, чтобы добавить события и очереди.
 Применить локальные переменные, outputs, modules, 
 чтобы тренироваться 
 с архитектурой Terraform.
+

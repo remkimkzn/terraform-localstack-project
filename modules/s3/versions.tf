@@ -1,3 +1,4 @@
+# какой провайдер 
 terraform {
   required_providers {
     aws = {
