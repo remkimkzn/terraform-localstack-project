@@ -1,3 +1,5 @@
+# подключаем LocalStack вместо реального AWS из root например
+
 terraform {
   required_providers {
     aws = {
@@ -21,11 +23,11 @@ provider "aws" {
   s3_use_path_style = true
 
   endpoints {
-    s3       = "http://localhost:4566"
-    dynamodb = "http://localhost:4566"
-    sns      = "http://localhost:4566"
-    sqs      = "http://localhost:4566"
-    lambda   = "http://localhost:4566"
-    sts      = "http://localhost:4566"  # важно указать, чтобы Terraform не уходил в реальный STS
+    s3       = "http://localhost:4566" # s3 — объектное хранилище (файлы, бакеты)
+    dynamodb = "http://localhost:4566" # dynamodb — NoSQL база данных 
+    sns      = "http://localhost:4566" # sns — сервис уведомлений (Simple Notification Service) 
+    sqs      = "http://localhost:4566" # sqs — очереди сообщений (Simple Queue Service)
+    lambda   = "http://localhost:4566" # lambda — бессерверные 
+    sts      = "http://localhost:4566"  # сервис для временных токенов и ролей важно указать, чтобы Terraform не уходил в реальный STS
   }
 }
