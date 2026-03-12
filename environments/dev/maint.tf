@@ -1,9 +1,12 @@
 # вызываем моуль s3 и задаем имя bucket
 # подключили модуль DynamoDB  NoSQL
 # модули очередь и уведомления
+# + ARN передать очереди
+
 module "storage" {
   source      = "../../modules/s3"
   bucket_name = "terraform-localstack-bucket"
+  sns_topic_arn = module.notifications.topic_arn
 }
 
 module "database" {
@@ -19,4 +22,5 @@ module "queue" {
 module "notifications" {
   source     = "../../modules/sns"
   topic_name = "terraform-localstack-topic"
+  sqs_queue_arn = module.queue.queue_arn
 }

@@ -23,6 +23,28 @@ awslocal sns list-topics
 Следующий шаг — связать SNS и SQS через подписку. 
 Тогда сообщения, отправленные в SNS, будут автоматически 
 попадать в очередь SQS.
+awslocal sns list-subscriptions
+Отправить тестовое сообщение
+awslocal sns publish \
+  --topic-arn arn:aws:sns:us-east-1:000000000000:terraform-localstack-topic \
+  --message "test message"
+Проверить очередь
+awslocal sqs list-queues
+
+добавить событие S3 → SNS. Тогда при загрузке файла в bucket
+будет отправляться событие в SNS, которое затем попадёт в SQS.
+Загрузить файл в bucket:
+awslocal s3 cp test.txt s3://terraform-localstack-bucket
+Проверить содержимое bucket
+awslocal s3 ls s3://terraform-localstack-bucket
+Проверить сообщение в SQS
+awslocal sqs list-queues
+Скопируй URL очереди из вывода:
+http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/terraform-localstack-queue
+Команда:
+awslocal sqs receive-message \
+  --queue-url http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/terraform-localstack-queue
+Поле "Message" содержит текст "test message", который мы отправили.
 
 Применить локальные переменные, outputs, modules, 
 чтобы тренироваться 
